@@ -40,7 +40,17 @@ int main(int argc, char* argv[]){
         filtered = filter(kernel, filtered, W, H);      // Filtering the image
     }
 
-    saveImage("NewImage.pgm", filtered, W, H);      // Save the final image (Remember to modify the extension
+    namedWindow("Original", WINDOW_NORMAL);
+    namedWindow("Result", WINDOW_NORMAL);
+
+    Mat imgO(H, W, CV_8UC1, (void*)data);
+    Mat imgR(H, W, CV_8UC1, (void*)filtered);
+
+    imshow("Original", imgO);
+    imshow("Result", imgR);
+    waitKey(0);
+
+    saveImage("NewImage.pgm", filtered, W, H);      // Save the final image
 
     free(filtered);
     free(data);
@@ -106,7 +116,7 @@ unsigned char* filter(const vector<vector<int>> &kernel, unsigned char* data, un
 
     for(int i = 0; i < kernel.size(); i++){
         for(int j = 0; j < kernel[i].size(); j++){
-            sum += kernel[i][j];         // Compute the sum of the numbers of the kernel
+            sum += kernel[i][j];         // Calculate the sum of the numbers of the kernel
         }
     }
     unsigned int index;
@@ -117,8 +127,8 @@ unsigned char* filter(const vector<vector<int>> &kernel, unsigned char* data, un
             for (int k = 0; k < kernel.size(); k++){
                 for (int l = 0; l < kernel[k].size(); l++){
 
-                    int x = (j - ((((kernel.size() - 1) / 2)) - l));
-                    int y = (i - ((((kernel.size() - 1) / 2)) - k));
+                    int x = (int)(j - ((((kernel.size() - 1) / 2)) - l));
+                    int y = (int)(i - ((((kernel.size() - 1) / 2)) - k));
 
                     if (x < 0)
                         x = (j + l);
