@@ -137,11 +137,11 @@ unsigned char* filter(const vector<vector<int>> &kernel, unsigned char* data, un
                         y = (i + k);
 
                     if (x > (W - 1)){
-                        x = (j - (l - 2));
+                        x = (int) (x - (kernel.size() - 1)/2);
                     }
 
                     if (y > (H - 1)){
-                        y = (i - (k - 2));
+                        y = (int) (y - (kernel.size() - 1)/2);
                     }
 
                     index = (y * W) + x;
